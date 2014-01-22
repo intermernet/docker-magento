@@ -10,7 +10,7 @@ MAINTAINER Mike Hughes, intermernet@gmail.com
 # Create a random password for root and MySQL
 RUN  < /dev/urandom tr -dc A-Za-z0-9 | head -c${1:-12} > /root/pw.txt
 
-# Change the root password to "toor"
+# Change the root password
 RUN echo "root:$(cat /root/pw.txt)" | chpasswd
 
 # Add Ubuntu Apt mirrors
@@ -19,7 +19,7 @@ RUN echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt precise main universe mult
 # Update package lists
 RUN apt-get update
 
-# Add MySQL root password ("toor") to deb-conf
+# Add MySQL root password to deb-conf
 RUN bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password $(cat /root/pw.txt)'"
 RUN bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $(cat /root/pw.txt)'"
 
