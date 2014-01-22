@@ -2,12 +2,12 @@
 #
 # Currently gets to fresh installation without Magento config
 
-# Use Ubuntu as base image
+# Use Ubuntu 12.04 as base image
 FROM ubuntu:precise
 
 MAINTAINER Mike Hughes, intermernet@gmail.com
 
-# Create a random password for root and MySQL
+# Create a random password for root and MySQL and save to "/root/pw.txt"
 RUN  < /dev/urandom tr -dc A-Za-z0-9 | head -c${1:-12} > /root/pw.txt
 
 # Change the root password
@@ -58,7 +58,7 @@ RUN mv /root/magento /var/www
 # Add Magento sample data
 # RUN mv /root/magento-sample-data-1.6.1.0/media/* /var/www/media/
 
-# Change owner files in web root
+# Change owner of files in web root to "www-data:www-data"
 RUN chown www-data:www-data -R /var/www
 
 # Create "/root/run.sh" startup script
@@ -70,7 +70,7 @@ RUN chmod +x /root/run.sh
 # Create the "magento" database
 RUN (mysqld &) ; sleep 5 && mysql -u root -p$(cat /root/pw.txt) -e "CREATE DATABASE magento;" ; kill -TERM $(cat /var/run/mysqld/mysqld.pid)
 
-# Display the password and delete pw.txt
+# Display the password and delete "/root/pw.txt"
 RUN bash -c "echo -e \"\n*********************************\nRECORD THE root / MySQL Password\x21\";echo $(cat /root/pw.txt);echo -e \"*********************************\n\"; rm -f /root/pw.txt"
 
 # Set the entry point to "/root/run.sh"
