@@ -1,6 +1,6 @@
 __Dockerfile to install Magento and OpenSSH__
 
-Currently installs Apache, MySQL, OpenSSH and Magento but does not configure Magento.
+Currently installs Apache, PHP, MySQL, OpenSSH and Magento but does not configure Magento.
 
 Example usage:
 
