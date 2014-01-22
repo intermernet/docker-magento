@@ -1,6 +1,6 @@
-# Magento and SSH installation
+# Apache, PHP, MySQL, Magento and SSHd installation
 #
-# Currently gets to fresh installation without Magento config
+# Currently gets to working Magento installation without config
 
 # Use Ubuntu 12.04 as base image
 FROM ubuntu:precise
@@ -13,7 +13,7 @@ RUN  < /dev/urandom tr -dc A-Za-z0-9 | head -c${1:-12} > /root/pw.txt
 # Change the root password
 RUN echo "root:$(cat /root/pw.txt)" | chpasswd
 
-# Add Ubuntu Apt mirrors
+# Add Ubuntu mirrors
 RUN echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt precise main universe multiverse' > /etc/apt/sources.list
 
 # Update package lists
@@ -23,13 +23,13 @@ RUN apt-get update
 RUN bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password $(cat /root/pw.txt)'"
 RUN bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $(cat /root/pw.txt)'"
 
-# Install Packages
+# Install packages
 RUN apt-get install -y mysql-server mysql-client apache2 php5 php5-curl php5-mcrypt php5-gd php5-mysql openssh-server
 
 # Create the SSHd working directory
 RUN mkdir /var/run/sshd
 
-# Enable Apache Mod Rewrite
+# Enable Apache rewrite module
 RUN a2enmod rewrite
 
 # Add the Apache virtual host file
