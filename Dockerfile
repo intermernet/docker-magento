@@ -30,7 +30,8 @@ RUN mkdir /var/run/sshd
 RUN a2enmod rewrite
 
 # Add the virtual host file
-ADD https://raw.github.com/dmahlow/docker-magento/master/apache_default_vhost /etc/apache2/sites-available/default
+# ADD https://raw.github.com/dmahlow/docker-magento/master/apache_default_vhost /etc/apache2/sites-available/default
+ADD apache_default_vhost /etc/apache2/sites-available/default
 
 # Download Magento
 ADD http://www.magentocommerce.com/downloads/assets/1.8.1.0/magento-1.8.1.0.tar.gz /root/
