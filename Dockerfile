@@ -29,7 +29,7 @@ RUN mkdir /var/run/sshd
 # Enable Apache Mod Rewrite
 RUN a2enmod rewrite
 
-# Add the virtual host file
+# Add the Apache virtual host file
 # ADD https://raw.github.com/dmahlow/docker-magento/master/apache_default_vhost /etc/apache2/sites-available/default
 ADD apache_default_vhost /etc/apache2/sites-available/default
 
@@ -37,11 +37,11 @@ ADD apache_default_vhost /etc/apache2/sites-available/default
 ADD http://www.magentocommerce.com/downloads/assets/1.8.1.0/magento-1.8.1.0.tar.gz /root/
 
 # Download Magento sample data
-ADD http://www.magentocommerce.com/downloads/assets/1.6.1.0/magento-sample-data-1.6.1.0.tar.gz /root/
+# ADD http://www.magentocommerce.com/downloads/assets/1.6.1.0/magento-sample-data-1.6.1.0.tar.gz /root/
 
 # Extract files
 RUN tar xzf /root/magento-1.8.1.0.tar.gz -C /root/
-RUN tar xzf /root/magento-sample-data-1.6.1.0.tar.gz -C /root/
+# RUN tar xzf /root/magento-sample-data-1.6.1.0.tar.gz -C /root/
 
 # Clean up gzip files
 RUN rm /root/magento-*.gz
@@ -53,7 +53,7 @@ RUN rm -fr /var/www
 RUN mv /root/magento /var/www
 
 # Add Magento sample data
-RUN mv /root/magento-sample-data-1.6.1.0/media/* /var/www/media/
+# RUN mv /root/magento-sample-data-1.6.1.0/media/* /var/www/media/
 
 # Change owner files in web root
 RUN chown www-data:www-data -R /var/www
