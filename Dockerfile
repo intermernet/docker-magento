@@ -71,7 +71,10 @@ RUN chmod +x /root/run.sh
 RUN (mysqld &) ; sleep 5 && mysql -u root -p$(cat /root/pw.txt) -e "CREATE DATABASE magento;" ; kill -TERM $(cat /var/run/mysqld/mysqld.pid)
 
 # Display the password
-RUN echo -e "****************\nRECORD THIS\nroot / MySQL Password:";cat /root/pw.txt;echo -e "****************"
+RUN bash -c "echo -e \"\n****************\nRECORD THIS\nroot / MySQL Password\";echo $(cat /root/pw.txt);echo -e \"****************\""
+
+# Delete the password file
+RUN rm -f /root/pw.txt
 
 # Set the entry point to "/root/run.sh"
 ENTRYPOINT ["/root/run.sh"]
