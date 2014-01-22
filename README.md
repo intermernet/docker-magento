@@ -20,7 +20,7 @@ To force which ports get NATed you can use something like (SSH on Docker host 22
 
 You should then be able to connect to the HTTP port and configure Magento. Use username `root` and the password recorded earlier to connect to the `magento` database.
 
-If the HTTP port is not NATed to port 80 on the Docker host, you may need some proxying (haproxy or nginx) to configure Magento correctly due to Magento's page rewrite rules, as well as the various `url` variables in the configuration db tables. *This is outside the sscope of this README!*
+If the HTTP port is not NATed to port 80 on the Docker host, you may need some proxying (haproxy or nginx) to configure Magento correctly due to Magento's page rewrite rules, as well as the various `url` variables in the configuration db tables. *This is outside the scope of this README!*
 
 You should also be able to connect to the instance via SSH using root and the password recorded earlier.
 
