@@ -42,7 +42,6 @@ ADD http://www.magentocommerce.com/downloads/assets/1.8.1.0/magento-1.8.1.0.tar.
 RUN tar xzf /root/magento-1.8.1.0.tar.gz -C /root/ && rm /root/magento-*.gz
 
 # Delete old web root and move Magento to web root
-
 RUN rm -fr /var/www && mv /root/magento /var/www
 
 # Change owner of files in web root to "www-data:www-data"
