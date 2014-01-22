@@ -8,7 +8,7 @@ Build the Dockerfile:
 
     docker build -t docker-magento github.com/Intermernet/docker-magento
 
-Towards the end of the output it will display the randomly generated root / MySQL password for the Docker image. Be sure to record this somewhere.
+Towards the end of the output it will display the randomly generated root / MySQL password for the Docker image. _*Be sure to record this somewhere!*_.
 
 Run the image:
 
