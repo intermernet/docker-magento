@@ -12,11 +12,9 @@ Towards the end of the output it will display the randomly generated root / MySQ
 
 Run the image:
 
-    docker run -d -t -i -h "host.name" -p 22 -p 80 docker-magento
-
-To force which ports get NATed you can use something like (SSH on Docker host 2222 and HTTP on Docker host 80):
-
     docker run -d -t -i -h "host.name" -p 2222:22 -p 80:80 docker-magento
+
+This will force the ports to be NATed as SSH on Docker host port 2222 and HTTP on Docker host port 80. *This will fail if a web server is already running on port 80 on the Docker host*.
 
 You should then be able to connect to the HTTP port and configure Magento. Use username `root` and the password recorded earlier to connect to the `magento` database.
 
