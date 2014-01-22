@@ -58,16 +58,16 @@ RUN mv /root/magento-sample-data-1.6.1.0/media/* /var/www/media/
 # Change owner files in web root
 RUN chown www-data:www-data -R /var/www
 
-# Create "run.sh" startup script in "/root/"
+# Create "/root/run.sh" startup script
 RUN bash -c "echo -e \"\x23\x21/bin/bash\nservice apache2 start\nmysqld --log --log-error \x26\n/usr/sbin/sshd -D \x26\nwait \x24\x7b\x21\x7d\n\" > /root/run.sh"
 
-# Change "run.sh" to be executable
+# Change "/root/run.sh" to be executable
 RUN chmod +x /root/run.sh
 
 # Create the "magento" database
-RUN (mysqld &) ; sleep 5 && mysql -u root -ptoor -e "create database magento;" ; kill -TERM $(cat /var/run/mysqld/mysqld.pid)
+RUN (mysqld &) ; sleep 5 && mysql -u root -ptoor -e "CREATE DATABASE magento;" ; kill -TERM $(cat /var/run/mysqld/mysqld.pid)
 
-# Set the entry point to the startup script
+# Set the entry point to "/root/run.sh"
 ENTRYPOINT ["/root/run.sh"]
 
 # Expose HTTP port
