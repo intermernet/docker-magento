@@ -19,7 +19,7 @@ RUN echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt precise main universe mult
 # Update package lists
 RUN apt-get update
 
-# Add MySQL root password to deb-conf
+# Add MySQL root password to debconf
 RUN bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password $(cat /root/pw.txt)'"
 RUN bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $(cat /root/pw.txt)'"
 
