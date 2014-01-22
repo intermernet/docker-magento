@@ -38,17 +38,12 @@ ADD apache_default_vhost /etc/apache2/sites-available/default
 # Download Magento
 ADD http://www.magentocommerce.com/downloads/assets/1.8.1.0/magento-1.8.1.0.tar.gz /root/
 
-# Extract files
-RUN tar xzf /root/magento-1.8.1.0.tar.gz -C /root/
+# Extract files and cleanup
+RUN tar xzf /root/magento-1.8.1.0.tar.gz -C /root/ && rm /root/magento-*.gz
 
-# Clean up gzip files
-RUN rm /root/magento-*.gz
+# Delete old web root and move Magento to web root
 
-# Delete old web root
-RUN rm -fr /var/www
-
-# Move Magento to web root
-RUN mv /root/magento /var/www
+RUN rm -fr /var/www && mv /root/magento /var/www
 
 # Change owner of files in web root to "www-data:www-data"
 RUN chown www-data:www-data -R /var/www
@@ -68,8 +63,5 @@ RUN bash -c "echo -e \"\n*********************************\nRecord the root / My
 # Set the entry point to "/root/run.sh"
 ENTRYPOINT ["/root/run.sh"]
 
-# Expose HTTP port
-EXPOSE 80
-
-# Expose SSH port
-EXPOSE 22
+# Expose SSH and HTTP ports
+EXPOSE 22 80
